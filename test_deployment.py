@@ -1,5 +1,7 @@
-import smtplib
 import dns.resolver
+import smtplib
+import time
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -84,6 +86,9 @@ def send_email(smtp_server, smtp_port, sender, recipient, subject, body, smtp_us
 
             # Print message if email was sent successfully
             print(f"Email successfully sent!")
+
+            # Introducing a delay in order to avoid overwhelming the services
+            time.sleep(3)
 
     except Exception as e:
         #Print message if email failed to send

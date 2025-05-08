@@ -158,6 +158,9 @@ def test_result_module(test_phase):
     print("\n--- Phase " + str(test_phase) + " Result Logging Complete ---")
 
 def main():
+
+    print("\n--- Beginning Test Result Compilation ---")
+
     test_result_module(1)
     # Compile test results for each phase of testing and output to CVS file
     '''for test_phase in range(1,5):
