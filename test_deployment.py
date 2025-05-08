@@ -141,7 +141,7 @@ def main():
     print("DMARC:   " + dmarc_result)
 
     # Deploy emails for each test case
-    '''print(f"\n--- Deploying Test Emails Test Phase {test_phase} ---\n")
+    print(f"\n--- Deploying Test Emails Test Phase {test_phase} ---\n")
     print(f"\n--- Sending Emails for Test Case 1 ---")
     send_test_case_1(test_phase)
     print(f"\n--- Sending Emails for Test Case 2 ---")
@@ -151,7 +151,7 @@ def main():
     print(f"\n--- Sending Emails for Test Case 4 ---")
     send_test_case_4(test_phase)
 
-    print(f"\n--- All Test Emails Sent for Test Phase {test_phase} ---\n")'''
+    print(f"\n--- All Test Emails Sent for Test Phase {test_phase} ---\n")
 
 if __name__ == "__main__":
     main()
