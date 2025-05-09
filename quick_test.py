@@ -20,6 +20,9 @@ outlook_smtp_port = 587
 outlook_smtp_user = sender
 outlook_smtp_password = "kpdwppzfjyhswhxn"
 
+# Postfix SMTP
+postfix_smtp_server = "localhost"
+postfix_smtp_port = 25
 
 # Check DNS records for the provided domain to verify TXT record exists for SPF
 def check_spf(domain):
@@ -98,9 +101,13 @@ def main():
     subject = "Testing"
     body = f"Test email sent from {sender}.\nSPF: {spf_result}\nDKIM: {dkim_result}\nDMARC: {dmarc_result}"
 
-    # Deploy emails for each test case
+    # Testing the ability to send an email from Outlook SMTP with authentication
     send_email(outlook_smtp_server, outlook_smtp_port, sender, recipient, subject, body, outlook_smtp_user, outlook_smtp_password)
-    print(f"--- Test Email Sent to {recipient} ---")
+    print(f"--- Test Email Sent to {recipient} from Outlook SMTP Server ---")
+
+    # Testing the ability to send
+    send_email(postfix_smtp_server, postfix_smtp_port, sender, recipient, subject, body)
+    print(f"--- Test Email Sent to {recipient} from Postfix SMTP Server ---")
 
 if __name__ == "__main__":
     main()

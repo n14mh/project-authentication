@@ -107,7 +107,7 @@ def send_test_case_1(test_phase):
 def send_test_case_2(test_phase):
     for recipient in recipients:
         for i in range(1,4): # Sending three email templates
-            subject = "Test Phase #" + str(test_phase) + " - Test Case #2 - Phish Email #"
+            subject = "Test Phase #" + str(test_phase) + " - Test Case #2 - Phish Email #" + str(i)
             print("Sending: " + subject + " - TO: " + recipient)
             template = load_email_template(f"emails/phish_email_{i}.html")
             send_email(outlook_smtp_server, outlook_smtp_port, sender, recipient, subject, template, outlook_smtp_user, outlook_smtp_password)

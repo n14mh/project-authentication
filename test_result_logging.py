@@ -8,7 +8,7 @@ import imaplib
 domain = "projectauthentication.com"
 
 # Test Email Sender
-sender = "send-from@projectauthentication.com"
+sender = "from-addr@projectauthentication.com"
 
 # Test Email Recipients
 recipients = ["thelncproject3@gmail.com", "thelncproject3@outlook.ie", "thelncproject3@yahoo.com"]
@@ -113,7 +113,7 @@ def log_results(results, filename="email_test_log.csv"):
         writer.writerow(results)
 
 def test_result_module(test_phase):
-    print(f"\n--- Checking Test Recipient Inboxes and Assembling Test Results for Test Phase {test_phase} ---\n")
+    print(f"\n--- Checking Test Recipient Inboxes and Assembling Test Results for Test Phase {test_phase} ---")
     # Create list to store test result for each email sent
     email_results = []
 
@@ -123,7 +123,9 @@ def test_result_module(test_phase):
 
     # Check email status by recipient inbox
     for recipient in recipients:
+        # Iterate through test cases 1-4
         for a in range(1, 5):
+            # Iterate through email templates 1-3
             for b in range(1, 4):
                 # Iterating through test email subjects
                 if a % 2 == 0:
@@ -142,14 +144,15 @@ def test_result_module(test_phase):
                     email_status = "Manual Check Required"
 
                 # Adding email deposition result to the results list
-                email_results.append([str(test_phase), str(a), recipient, test_id, email_status])
-                #email_results.append([str(test_phase), spf_result, dkim_result, dmarc_result, str(a), recipient, test_id, email_status])
+                #email_results.append([str(test_phase), str(a), recipient, test_id, email_status])
+
+                # Option to include current SPF, DKIM and DMARC configuration verified in DNS records for the domain
+                email_results.append([str(test_phase), spf_result, dkim_result, dmarc_result, str(a), recipient, test_id, email_status])
 
     # Printing list of test results to the console
     print("\n--- Displaying Test Results ---")
     for result in email_results:
         print(result)
-        # Attaching a timestamp each result and logging all to CSV file
         log_results(result)
 
     print("Results logged to CSV file.\n")
@@ -161,7 +164,9 @@ def main():
 
     print("\n--- Beginning Test Result Compilation ---")
 
-    test_result_module(1)
+    # Compile test results for a specific phase of testing and output to CVS file
+    test_result_module(4) # change number to correspond with test phase in question
+
     # Compile test results for each phase of testing and output to CVS file
     '''for test_phase in range(1,5):
         test_result_module(test_phase)'''
