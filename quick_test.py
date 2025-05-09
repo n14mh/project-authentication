@@ -103,11 +103,11 @@ def main():
 
     # Testing the ability to send an email from Outlook SMTP with authentication
     send_email(outlook_smtp_server, outlook_smtp_port, sender, recipient, subject, body, outlook_smtp_user, outlook_smtp_password)
-    print(f"--- Test Email Sent to {recipient} from Outlook SMTP Server ---")
+    print(f"\n--- Test Email Sent to {recipient} from Outlook SMTP Server ---")
 
     # Testing the ability to send
     send_email(postfix_smtp_server, postfix_smtp_port, sender, recipient, subject, body)
-    print(f"--- Test Email Sent to {recipient} from Postfix SMTP Server ---")
+    print(f"\n--- Test Email Sent to {recipient} from Postfix SMTP Server ---")
 
 if __name__ == "__main__":
     main()

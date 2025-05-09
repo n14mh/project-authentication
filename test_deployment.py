@@ -136,7 +136,7 @@ def main():
     print(f"\n--- Test Phase {test_phase} ---\n")
 
     # Confirming SPF, DKIM and DMARC configured for the domain
-    print(f"--- Verifying current SPF, DKIM and DMARC configuration in DNS records for {domain}---")
+    print(f"--- Verifying current SPF, DKIM and DMARC configuration in DNS records for {domain}---\n")
     spf_result = check_spf(domain)
     dkim_result = check_dkim(domain)
     dmarc_result = check_dmarc(domain)

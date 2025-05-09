@@ -162,17 +162,18 @@ def test_result_module(test_phase):
 
 def main():
 
-    print("\n--- Beginning Test Result Compilation ---")
+    print("\n--- Beginning Test Result Logging ---")
 
     # Compile test results for a specific phase of testing and output to CVS file
-    test_result_module(4) # change number to correspond with test phase in question
+    test_phase = 4 # change number to correspond with test phase in question
+    test_result_module(test_phase)
 
     # Compile test results for each phase of testing and output to CVS file
-    '''for test_phase in range(1,5):
-        test_result_module(test_phase)'''
+    #for test_phase in range(1,5):
+    #    test_result_module(test_phase)
 
     # Testing complete
-    print("\n--- All Result Logging Complete ---")
+    print("\n--- Test Result Logging Complete ---")
 
 if __name__ == "__main__":
     main()
