@@ -76,14 +76,25 @@ def send_email(smtp_server, smtp_port, sender, recipient, subject, body, smtp_us
             server.starttls()
 
             # Authenticate with SMTP server if credentials provided
-            server.login(smtp_user, smtp_password)
+            if smtp_user:
+                server.login(smtp_user, smtp_password)
 
             # Send email to recipient with subject and body template for this test case
             server.sendmail(sender, recipient, msg.as_string())
+            server.quit()
+
+            # Print message if email sent successfully from the SMTP server
+            if smtp_user:
+                print(f"Test Email Sent to {recipient} from Outlook SMTP Server ---")
+            else:
+                print(f"Test Email Sent to {recipient} from Postfix SMTP Server ---\n")
 
     except Exception as e:
         #Print message if email failed to send
-        print(f"Failed to send email: {e}")
+        if smtp_user:
+            print(f"Failed to send email using Outlook SMTP: {e}")
+        else:
+            print(f"Failed to send email using Postfix SMTP: {e}\n")
 
 def main():
 
@@ -101,13 +112,12 @@ def main():
     subject = "Testing"
     body = f"Test email sent from {sender}.\nSPF: {spf_result}\nDKIM: {dkim_result}\nDMARC: {dmarc_result}"
 
+    print(f"\n--- Sending Test Emails ---")
     # Testing the ability to send an email from Outlook SMTP with authentication
     send_email(outlook_smtp_server, outlook_smtp_port, sender, recipient, subject, body, outlook_smtp_user, outlook_smtp_password)
-    print(f"\n--- Test Email Sent to {recipient} from Outlook SMTP Server ---")
 
     # Testing the ability to send
     send_email(postfix_smtp_server, postfix_smtp_port, sender, recipient, subject, body)
-    print(f"\n--- Test Email Sent to {recipient} from Postfix SMTP Server ---")
 
 if __name__ == "__main__":
     main()

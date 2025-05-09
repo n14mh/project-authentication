@@ -83,6 +83,7 @@ def send_email(smtp_server, smtp_port, sender, recipient, subject, body, smtp_us
 
             # Send email to recipient with subject and body template for this test case
             server.sendmail(sender, recipient, msg.as_string())
+            server.quit()
 
             # Print message if email was sent successfully
             print(f"Email successfully sent!")
