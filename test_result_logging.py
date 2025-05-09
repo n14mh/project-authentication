@@ -1,6 +1,7 @@
 import csv
 import dns.resolver
 import imaplib
+import time
 
 
 # Global Variables
@@ -147,7 +148,7 @@ def test_result_module(test_phase):
                 #email_results.append([str(test_phase), str(a), recipient, test_id, email_status])
 
                 # Option to include current SPF, DKIM and DMARC configuration verified in DNS records for the domain
-                email_results.append([str(test_phase), spf_result, dkim_result, dmarc_result, str(a), recipient, test_id, email_status])
+                email_results.append([time.strftime("%Y-%m-%d %H:%M:%S"), str(test_phase), spf_result, dkim_result, dmarc_result, str(a), recipient, test_id, email_status])
 
     # Printing list of test results to the console
     print("\n--- Displaying Test Results ---")

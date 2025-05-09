@@ -1,5 +1,6 @@
 import smtplib
 import dns.resolver
+import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -80,21 +81,21 @@ def send_email(smtp_server, smtp_port, sender, recipient, subject, body, smtp_us
                 server.login(smtp_user, smtp_password)
 
             # Send email to recipient with subject and body template for this test case
-            server.sendmail(sender, recipient, msg.as_string())
+            #server.sendmail(sender, recipient, msg.as_string())
             server.quit()
 
             # Print message if email sent successfully from the SMTP server
             if smtp_user:
-                print(f"Test Email Sent to {recipient} from Outlook SMTP Server ---")
+                print(time.strftime("%Y-%m-%d %H:%M:%S") + f" Test Email Sent to {recipient} from Outlook SMTP Server")
             else:
-                print(f"Test Email Sent to {recipient} from Postfix SMTP Server ---\n")
+                print(time.strftime("%Y-%m-%d %H:%M:%S") + f" Test Email Sent to {recipient} from Postfix SMTP Server\n")
 
     except Exception as e:
         #Print message if email failed to send
         if smtp_user:
-            print(f"Failed to send email using Outlook SMTP: {e}")
+            print(time.strftime("%Y-%m-%d %H:%M:%S") + f" Failed to send email using Outlook SMTP: {e}")
         else:
-            print(f"Failed to send email using Postfix SMTP: {e}\n")
+            print(time.strftime("%Y-%m-%d %H:%M:%S") + f" Failed to send email using Postfix SMTP: {e}\n")
 
 def main():
 
