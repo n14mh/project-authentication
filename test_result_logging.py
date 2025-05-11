@@ -1,7 +1,6 @@
 import csv
 import dns.resolver
 import imaplib
-import time
 
 
 # Global Variables
@@ -9,10 +8,10 @@ import time
 domain = "projectauthentication.com"
 
 # Test Email Sender
-sender = "from-addr@projectauthentication.com"
+sender = "send-from@projectauthentication.com"
 
 # Test Email Recipients
-recipients = ["thelncproject3@gmail.com", "thelncproject3@outlook.ie", "thelncproject3@yahoo.com"]
+recipients = ["thelncproject3@gmail.com"]
 
 
 def check_spf(domain):
@@ -76,39 +75,8 @@ def check_gmail_recipient_status(recipient, subject):
             except:
                 pass
 
-# Check Outlook recipient inbox
-def check_outlook_recipient_status(recipient, subject):
-    mail = None
-    try:
-        mail = imaplib.IMAP4_SSL("outlook.office365.com",993)
-        mail.login(recipient, "wwljxtuejtczrmgq")
-
-        # Check Junk folder first
-        status, _ = mail.select("Junk Email")
-        if status == "OK":
-            result, data = mail.search(None, f'(FROM "{sender}" SUBJECT "{subject}")')
-            if data and data[0].strip():
-                return "Spam"
-
-        # Check Inbox only if not found in Junk
-        status, _ = mail.select("Inbox")
-        if status == "OK":
-            result, data = mail.search(None, f'(FROM "{sender}" SUBJECT "{subject}")')
-            if data and data[0].strip():
-                return "Inbox"
-
-        return "Not Found"
-    except Exception as e:
-        return f"Error checking status: {e}"
-    finally:
-        if mail:
-            try:
-                mail.logout()
-            except:
-                pass
-
 # Log test phase results into cvs file
-def log_results(results, filename="email_test_log.csv"):
+def log_results(results, filename="test_result_log.csv"):
     with open(filename, mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(results)
@@ -139,16 +107,9 @@ def test_result_module(test_phase):
                 # Choose the appropriate checker based on recipient email provider
                 if "gmail.com" in recipient:
                     email_status = check_gmail_recipient_status(recipient, subject)
-                elif "outlook.ie" in recipient:
-                    email_status = "Manual Check Required"
-                elif "yahoo.com" in recipient:
-                    email_status = "Manual Check Required"
 
                 # Adding email deposition result to the results list
-                #email_results.append([str(test_phase), str(a), recipient, test_id, email_status])
-
-                # Option to include current SPF, DKIM and DMARC configuration verified in DNS records for the domain
-                email_results.append([time.strftime("%Y-%m-%d %H:%M:%S"), str(test_phase), spf_result, dkim_result, dmarc_result, str(a), recipient, test_id, email_status])
+                email_results.append([str(test_phase), str(a), recipient, test_id, email_status])
 
     # Printing list of test results to the console
     print("\n--- Displaying Test Results ---")
@@ -168,10 +129,6 @@ def main():
     # Compile test results for a specific phase of testing and output to CVS file
     test_phase = 4 # change number to correspond with test phase in question
     test_result_module(test_phase)
-
-    # Compile test results for each phase of testing and output to CVS file
-    #for test_phase in range(1,5):
-    #    test_result_module(test_phase)
 
     # Testing complete
     print("\n--- Test Result Logging Complete ---")

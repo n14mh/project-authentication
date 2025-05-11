@@ -11,16 +11,16 @@ from email.mime.text import MIMEText
 domain = "projectauthentication.com"
 
 # Test Email Sender
-sender = "from-addr@projectauthentication.com"
+sender = "send-from@projectauthentication.com"
 
 # Test Email Recipients
-recipients = ["thelncproject3@gmail.com", "thelncproject3@outlook.ie", "thelncproject3@yahoo.com"]
+recipients = ["thelncproject3@gmail.com", "thelncproject3@yahoo.com"]
 
 # Authenticated Outlook SMTP
 outlook_smtp_server = "smtp-mail.outlook.com"
 outlook_smtp_port = 587
 outlook_smtp_user = sender
-outlook_smtp_password = "kpdwppzfjyhswhxn"
+outlook_smtp_password = "kdpvrghyhnqgjkpb"
 
 # Postfix SMTP
 postfix_smtp_server = "localhost"
@@ -86,21 +86,21 @@ def send_email(smtp_server, smtp_port, sender, recipient, subject, body, smtp_us
             server.quit()
 
             # Print message if email was sent successfully
-            print(time.strftime("%Y-%m-%d %H:%M:%S") + f" Email successfully sent!")
+            print(f"Email successfully sent!")
 
             # Introducing a delay in order to avoid overwhelming the services
             time.sleep(3)
 
     except Exception as e:
         #Print message if email failed to send
-        print(time.strftime("%Y-%m-%d %H:%M:%S") + f" Failed to send email: {e}")
+        print(f"Failed to send email: {e}")
 
 # Test Case 1: Outlook SMTP, Legitimate email templates
 def send_test_case_1(test_phase):
     for recipient in recipients:
         for i in range(1,4): # Sending three email templates
             subject = "Test Phase #" + str(test_phase) + " - Test Case #1 - Legit Email #" + str(i)
-            print(time.strftime("%Y-%m-%d %H:%M:%S") + " Sending: " + subject + " - TO: " + recipient)
+            print("Sending: " + subject + " - TO: " + recipient)
             template = load_email_template(f"emails/legit_email_{i}.html")
             send_email(outlook_smtp_server, outlook_smtp_port, sender, recipient, subject, template, outlook_smtp_user, outlook_smtp_password)
 
@@ -109,7 +109,7 @@ def send_test_case_2(test_phase):
     for recipient in recipients:
         for i in range(1,4): # Sending three email templates
             subject = "Test Phase #" + str(test_phase) + " - Test Case #2 - Phish Email #" + str(i)
-            print(time.strftime("%Y-%m-%d %H:%M:%S") + " Sending: " + subject + " - TO: " + recipient)
+            print("Sending: " + subject + " - TO: " + recipient)
             template = load_email_template(f"emails/phish_email_{i}.html")
             send_email(outlook_smtp_server, outlook_smtp_port, sender, recipient, subject, template, outlook_smtp_user, outlook_smtp_password)
 
@@ -118,7 +118,7 @@ def send_test_case_3(test_phase):
     for recipient in recipients:
         for i in range(1,4): # Sending three email templates
             subject = "Test Phase #" + str(test_phase) + " - Test Case #3 - Legit Email #" + str(i)
-            print(time.strftime("%Y-%m-%d %H:%M:%S") + " Sending: " + subject + " - TO: " + recipient)
+            print("Sending: " + subject + " - TO: " + recipient)
             template = load_email_template(f"emails/legit_email_{i}.html")
             send_email(postfix_smtp_server, postfix_smtp_port,sender, recipient, subject, template)
 
@@ -127,13 +127,13 @@ def send_test_case_4(test_phase):
     for recipient in recipients:
         for i in range(1,4): # Sending three email templates
             subject = "Test Phase #" + str(test_phase) + " - Test Case #4 - Phish Email #" + str(i)
-            print(time.strftime("%Y-%m-%d %H:%M:%S") + " Sending: " + subject + " - TO: " + recipient)
+            print("Sending: " + subject + " - TO: " + recipient)
             template = load_email_template(f"emails/phish_email_{i}.html")
             send_email(postfix_smtp_server, postfix_smtp_port, sender, recipient, subject, template)
 
 def main():
     # Configure which test phase is to be deployed - change as testing progresses
-    test_phase = 4
+    test_phase = 1
     print(f"\n--- Test Phase {test_phase} ---\n")
 
     # Confirming SPF, DKIM and DMARC configured for the domain
